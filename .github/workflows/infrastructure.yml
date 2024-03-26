@@ -6,6 +6,7 @@ on:
             - master
         paths:
             - Infrastructure/**
+            - .github/workflows/infrastructure.yml
 
 permissions:
     id-token: write
