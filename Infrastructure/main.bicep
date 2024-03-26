@@ -5,7 +5,7 @@ param location string = resourceGroup().location
 @maxLength(13)
 param resourceNameSuffix string = uniqueString(resourceGroup().id)
 
-var astleBeStorageAccountName = 'astlebe-sa-${resourceNameSuffix}'
+var astleBeStorageAccountName = 'astlebesa${resourceNameSuffix}'
 
 resource astleBeStorageAccount 'Microsoft.Storage/storageAccounts@2022-09-01' = {
   name: astleBeStorageAccountName
