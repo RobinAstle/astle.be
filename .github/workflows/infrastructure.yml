@@ -1,10 +1,24 @@
-name: setup infrastructure for astle.be
+name: deploy infrastructure for astle.be
 
 on: workflow_dispatch
 
+permissions:
+    id-token: write
+    contents: read
+
 jobs:
-    say-hello:
+    deploy:
         runs-on: ubuntu-latest
         steps:
-            - name: "hello step"
-              run: echo "Hello!"
+            - uses: actions/checkout@v3
+            - uses: azure/login@v1
+              with:
+                  client-id: ${{ secrets.AZURE_CLIENT_ID }}
+                  tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+                  subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+            - uses: azure/arm-deploy@v1
+              with:
+                  scope: resourcegroup
+                  deploymentName: ${{ github.run_number }}
+                  resourceGroupName: ${{ vars.AZURE_RESOURCEGROUP_NAME }}
+                  template: ./Infrastructure/main.bicep
