@@ -1,6 +1,11 @@
 name: deploy infrastructure for astle.be
 
-on: workflow_dispatch
+on:
+    push:
+        branches:
+            - master
+        paths:
+            - Infrastructure/**
 
 permissions:
     id-token: write
